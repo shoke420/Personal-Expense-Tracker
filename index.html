@@ -1,0 +1,580 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PERSONAL EXPENSE TRACKER</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container-fluid">
+    <div class="row g-0">
+
+        <!-- SIDEBAR -->
+        <div class="col-md-3 col-lg-2 bg-light min-vh-100 p-4 app-sidebar">
+
+            <h4 class="text-success mb-4">ExpenseTracker</h4>
+
+            <p class="text-muted small">MENU</p>
+
+            <nav class="nav flex-column gap-2">
+
+                <a href="#dashboard" class="nav-link text-dark page-link active" data-page="dashboard">
+                    <i class="bi bi-grid me-2"></i> Dashboard
+                </a>
+
+                <a href="#transactionsPage" class="nav-link text-dark page-link" data-page="transactionsPage">
+                    <i class="bi bi-arrow-left-right me-2"></i> Transactions
+                </a>
+
+                <a href="#incomePage" class="nav-link text-dark page-link" data-page="incomePage">
+                    <i class="bi bi-wallet2 me-2"></i> Income
+                </a>
+
+                <a href="#expensesPage" class="nav-link text-dark page-link" data-page="expensesPage">
+                    <i class="bi bi-credit-card me-2"></i> Expenses
+                </a>
+
+                <a href="#reportsPage" class="nav-link text-dark page-link" data-page="reportsPage">
+                    <i class="bi bi-bar-chart me-2"></i> Reports
+                </a>
+
+                <a href="#settingsPage" class="nav-link text-dark page-link" data-page="settingsPage">
+                    <i class="bi bi-gear me-2"></i> Settings
+                </a>
+
+            </nav>
+
+        </div>
+
+
+        <!-- MAIN CONTENT -->
+        <div class="col-md-9 col-lg-10 p-4 app-main">
+
+
+            <!-- =====================================
+                 DASHBOARD PAGE
+            ====================================== -->
+
+            <div id="dashboard" class="app-page active">
+
+                <!-- DASHBOARD HEADER -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div>
+                        <h2 class="fw-bold mb-1">Dashboard</h2>
+
+                        <p class="text-muted mb-0">
+                            Welcome back! Here's your financial overview.
+                        </p>
+                    </div>
+
+                    <button class="btn btn-success" type="button"
+                        onclick="document.getElementById('addTransactionSection').scrollIntoView({behavior: 'smooth'})">
+                        + Add Transaction
+                    </button>
+
+                </div>
+
+
+                <!-- DASHBOARD CARDS -->
+                <div class="row g-4 mb-4">
+
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm rounded-4 h-100">
+                            <div class="card-body p-4">
+                                <p class="text-muted mb-2">Total Income</p>
+                                <h3 class="text-success fw-bold">
+                                    ₦<span id="totalIncome">0.00</span>
+                                </h3>
+                                <small class="text-muted">Money received</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm rounded-4 h-100">
+                            <div class="card-body p-4">
+                                <p class="text-muted mb-2">Total Expenses</p>
+                                <h3 class="text-danger fw-bold">
+                                    ₦<span id="totalExpenses">0.00</span>
+                                </h3>
+                                <small class="text-muted">Money spent</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm rounded-4 h-100">
+                            <div class="card-body p-4">
+                                <p class="text-muted mb-2">Available Balance</p>
+                                <h3 class="text-primary fw-bold">
+                                    ₦<span id="balance">0.00</span>
+                                </h3>
+                                <small class="text-muted">Your remaining balance</small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- ADD TRANSACTION -->
+                <div class="card border-0 shadow-sm rounded-4 mt-4"
+                    id="addTransactionSection">
+
+                    <div class="card-body p-4">
+
+                        <h4 class="fw-bold mb-1">Add Transaction</h4>
+
+                        <p class="text-muted mb-4">
+                            Record your income or expenses.
+                        </p>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+                                <label for="type" class="form-label">Transaction Type</label>
+                                <select class="form-select" id="type">
+                                    <option value="income">Credit / Income</option>
+                                    <option value="expense">Debit / Expense</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="amount" class="form-label">Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">₦</span>
+                                    <input type="number" class="form-control" id="amount"
+                                        placeholder="Enter amount" min="0.01" step="0.01">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="description" class="form-label">Description</label>
+                                <input type="text" class="form-control" id="description"
+                                    placeholder="e.g. Food, Salary, Transport">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="date" class="form-label">Transaction Date</label>
+                                <input type="date" class="form-control" id="date">
+                            </div>
+
+                            <div class="col-12">
+                                <button type="button" class="btn btn-success px-4"
+                                    id="addTransaction">
+                                    Add Transaction
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- BANK STATEMENT IMPORT -->
+                <div class="card border-0 shadow-sm rounded-4 mt-4">
+
+                    <div class="card-body p-4">
+
+                        <h4 class="fw-bold mb-1">Import Bank Statement</h4>
+
+                        <p class="text-muted mb-4">
+                            Upload your bank statement to automatically
+                            calculate your income and expenses.
+                        </p>
+
+                        <div class="border border-2 border-dashed rounded-4 p-4 text-center">
+
+                            <h5 class="fw-semibold">Upload your statement</h5>
+
+                            <p class="text-muted small">
+                                Select a CSV file from your device.
+                            </p>
+
+                            <div id="uploadcontainer" class="upload-container">
+
+                                <label for="fileInput" class="form-label">
+                                    Choose CSV File
+                                </label>
+
+                                <input type="file" id="fileInput" class="form-control"
+                                    accept=".csv,text/csv" onchange="loadFile(event)">
+
+                            </div>
+
+                            <small class="text-muted d-block mt-3">
+                                Currently supported: CSV
+                            </small>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- END DASHBOARD PAGE -->
+
+
+            <!-- =====================================
+                 TRANSACTIONS PAGE
+            ====================================== -->
+
+            <div id="transactionsPage" class="app-page">
+
+                <div class="mb-4">
+                    <h2 class="fw-bold">Transactions</h2>
+                    <p class="text-muted">
+                        View and manage your financial transactions.
+                    </p>
+                </div>
+
+                <div class="card border-0 shadow-sm rounded-4 mb-4"
+                    id="transactionHistory">
+
+                    <div class="card-body p-4">
+
+                        <h4 class="fw-bold mb-1">Transaction History</h4>
+
+                        <p class="text-muted mb-4">
+                            Your recorded income and expenses.
+                        </p>
+
+                        <div class="table-responsive">
+
+                            <table class="table table-hover align-middle">
+
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Description</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="transactionList"></tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- END TRANSACTIONS PAGE -->
+
+
+            <!-- =====================================
+                 INCOME PAGE
+            ====================================== -->
+
+            <div id="incomePage" class="app-page">
+
+                <div class="mb-4">
+                    <h2 class="fw-bold">Income Overview</h2>
+                    <p class="text-muted">
+                        Track and manage all your income.
+                    </p>
+                </div>
+
+                <div class="row g-3 mb-4">
+
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm rounded-4 p-3">
+                            <p class="text-muted mb-2">Total Income</p>
+                            <h3 class="fw-bold text-success">
+                                ₦<span id="incomePageTotal">0.00</span>
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm rounded-4 p-3">
+                            <p class="text-muted mb-2">Number of Transactions</p>
+                            <h3 class="fw-bold" id="incomePageCount">0</h3>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card border-0 shadow-sm rounded-4 p-4">
+
+                    <h4 class="fw-bold mb-3">Income History</h4>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="incomePageList"></tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- END INCOME PAGE -->
+
+
+            <!-- =====================================
+                 EXPENSES PAGE
+            ====================================== -->
+
+            <div id="expensesPage" class="app-page">
+
+                <div class="mb-4">
+                    <h2 class="fw-bold">Expenses Overview</h2>
+                    <p class="text-muted">
+                        Track and manage all your spending.
+                    </p>
+                </div>
+
+                <div class="row g-3 mb-4">
+
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm rounded-4 p-3">
+                            <p class="text-muted mb-2">Total Expenses</p>
+                            <h3 class="fw-bold text-danger">
+                                ₦<span id="expensesPageTotal">0.00</span>
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm rounded-4 p-3">
+                            <p class="text-muted mb-2">Number of Transactions</p>
+                            <h3 class="fw-bold" id="expensesPageCount">0</h3>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card border-0 shadow-sm rounded-4 p-4">
+
+                    <h4 class="fw-bold mb-3">Expenses History</h4>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="expensesPageList"></tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- END EXPENSES PAGE -->
+
+
+            <!-- =====================================
+                 REPORTS PAGE
+            ====================================== -->
+
+            <div id="reportsPage" class="app-page">
+
+                <div class="card border-0 shadow-sm rounded-4 mt-2 mb-4"
+                    id="reports">
+
+                    <div class="card-body p-4">
+
+                        <h2 class="fw-bold mb-1">Financial Reports</h2>
+
+                        <p class="text-muted mb-4">
+                            Get an overview of your financial activities.
+                        </p>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-4">
+                                <div class="p-3 bg-light rounded-3">
+                                    <h6 class="text-muted">Total Income</h6>
+                                    <h4 class="text-success">
+                                        ₦<span id="reportTotalIncome">0.00</span>
+                                    </h4>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="p-3 bg-light rounded-3">
+                                    <h6 class="text-muted">Total Expenses</h6>
+                                    <h4 class="text-danger">
+                                        ₦<span id="reportTotalExpenses">0.00</span>
+                                    </h4>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="p-3 bg-light rounded-3">
+                                    <h6 class="text-muted">Current Balance</h6>
+                                    <h4>
+                                        ₦<span id="reportBalance">0.00</span>
+                                    </h4>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- END REPORTS PAGE -->
+
+
+            <!-- =====================================
+                 SETTINGS PAGE
+            ====================================== -->
+
+            <div id="settingsPage" class="app-page">
+
+                <div class="mb-4">
+                    <h2 class="fw-bold">Settings</h2>
+                    <p class="text-muted">
+                        Manage your expense tracker preferences.
+                    </p>
+                </div>
+
+                <!-- APPEARANCE -->
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+                    <div class="card-body p-4">
+
+                        <h5 class="fw-bold">
+                            <i class="bi bi-palette me-2"></i> Appearance
+                        </h5>
+
+                        <p class="text-muted">
+                            Choose how your expense tracker looks.
+                        </p>
+
+                        <select id="themeSelector" class="form-select">
+                        <option value="light">Light Mode</option>
+                        <option value="dark">Dark Mode</option>
+                        </select>
+
+                    </div>
+                </div>
+
+
+                <!-- DATA BACKUP -->
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+                    <div class="card-body p-4">
+
+                        <h5 class="fw-bold">
+                            <i class="bi bi-cloud-arrow-down me-2"></i> Data Backup
+                        </h5>
+
+                        <p class="text-muted">
+                            Save a copy of your transactions or restore a previous backup.
+                        </p>
+
+                        <button class="btn btn-primary me-2 mb-2" id="exportBackup">
+                            <i class="bi bi-download me-1"></i> Export Backup
+                        </button>
+
+                        <button class="btn btn-outline-primary mb-2" id="importBackupButton">
+                            <i class="bi bi-upload me-1"></i> Import Backup
+                        </button>
+
+                        <input type="file" id="backupFile"
+                            accept=".json,application/json" hidden>
+
+                    </div>
+                </div>
+
+
+                <!-- CURRENCY -->
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+                    <div class="card-body p-4">
+
+                        <h5 class="fw-bold">
+                            <i class="bi bi-currency-exchange me-2"></i> Currency
+                        </h5>
+
+                        <p class="text-muted mb-2">
+                            Your tracker currently uses Nigerian Naira.
+                        </p>
+
+                        <span class="badge bg-light text-dark border">
+                            ₦ Nigerian Naira (NGN)
+                        </span>
+
+                    </div>
+                </div>
+
+
+                <!-- DANGER ZONE -->
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+                    <div class="card-body p-4">
+
+                        <h5 class="fw-bold text-danger">
+                            <i class="bi bi-exclamation-triangle me-2"></i> Danger Zone
+                        </h5>
+
+                        <p class="text-muted">
+                            Permanently clear all transactions saved in this tracker.
+                        </p>
+
+                        <button class="btn btn-danger" id="clearAllData">
+                            Clear All Transactions
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- END SETTINGS PAGE -->
+
+
+        </div>
+        <!-- END MAIN CONTENT -->
+
+    </div>
+</div>
+
+
+<!-- JAVASCRIPT -->
+<script src="script.js"></script>
+
+<!-- BOOTSTRAP JAVASCRIPT -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
